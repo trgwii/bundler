@@ -1,10 +1,10 @@
 import { readVarnum } from "./deps.ts";
 import { getBytes } from "./getBytes.ts";
-import type { bundle } from "./types.ts";
+import type { bundle, log } from "./types.ts";
 
 export const load = async (
   input: Deno.Reader,
-  log: (...args: any[]) => void = () => {},
+  log: log = () => {},
 ): Promise<bundle> => {
   const isFile = (await readVarnum(input)) === 0;
   if (isFile) {

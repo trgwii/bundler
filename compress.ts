@@ -1,9 +1,10 @@
 import { writeVarnum } from "./deps.ts";
+import { log } from "./types.ts";
 
 export const compress = async (
   inPath: string,
   output: Deno.Writer,
-  log: (...args: any[]) => void = () => {},
+  log: log = () => {},
 ): Promise<number> => {
   let n = 0;
   const stat = await Deno.stat(inPath);
