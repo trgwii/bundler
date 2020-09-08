@@ -11,20 +11,16 @@ export const extract = async (
   if (isFile) {
     const length = await readVarnum(input);
     log("[extract] file with length", length);
-    await copyN(
-      input,
-      await Deno.open(outPath, { create: true, write: true }),
-      length,
-    );
+    const file = await Deno.open(outPath, { create: true, write: true });
+    await copyN(input, file, length);
+    file.close();
   } else {
-    await Deno.mkdir(outPath);
+    await Deno.mkdir(outPath, { recursive: true });
     const entries = await readVarnum(input);
     log("[extract] dir with", entries, "entries");
     for (let i = 0; i < entries; i++) {
       const nameLength = await readVarnum(input);
-      const name = new TextDecoder().decode(
-        await getBytes(nameLength, input),
-      );
+      const name = new TextDecoder().decode(await getBytes(nameLength, input));
       log("[extract] entry:", name);
       await extract(input, `${outPath}/${name}`, log);
     }

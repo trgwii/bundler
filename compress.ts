@@ -15,7 +15,9 @@ export const compress = async (
     log("[compress] file", inPath, "with length", stat.size);
     n += await writeVarnum(output, 0);
     n += await writeVarnum(output, stat.size);
-    n += await Deno.copy(await Deno.open(inPath), output);
+    const file = await Deno.open(inPath);
+    n += await Deno.copy(file, output);
+    file.close();
   }
   if (stat.isDirectory) {
     n += await writeVarnum(output, 1);
