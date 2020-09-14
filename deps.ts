@@ -1,3 +1,4 @@
+export { encode } from "https://deno.land/std@0.69.0/encoding/ascii85.ts";
 export {
   readVarnum,
   writeVarnum,
