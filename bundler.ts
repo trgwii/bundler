@@ -88,6 +88,8 @@ if (import.meta.main) {
       }
     })(data, 0);
   } else {
-    console.error("Available commands: compress, extract, send, receive, show");
+    console.error(
+      "Available commands: compress, extract, ts-bundle, ts-extract, send, receive, show",
+    );
   }
 }
