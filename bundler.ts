@@ -9,7 +9,7 @@ root: 0 or 1 (file or dir)
 			name buffer
 			(root)
 
-deno install --allow-read=. --allow-write=. -n bundler bundler.ts
+deno install -f --allow-read --allow-write -n bundler bundler.ts
 */
 
 import { compress } from "./compress.ts";
@@ -20,6 +20,7 @@ import { receive } from "./receive.ts";
 import { send } from "./send.ts";
 import { tsBundle } from "./tsBundle.ts";
 import type { bundle } from "./types.ts";
+import { unparse } from "./unparse.ts";
 
 export { compress, extract, load, parse, bundle };
 
@@ -43,6 +44,20 @@ if (import.meta.main) {
     await tsBundle(inFile, outFile);
     inFile.close();
     outFile.close();
+  } else if (mode === "ts-extract") {
+    const [input, output] = args;
+    const { default: data } = await import(input);
+    const tmpFileName = output + ".bin.tmp";
+    const outTmpFile = await Deno.open(
+      tmpFileName,
+      { create: true, write: true },
+    );
+    await unparse(await data, outTmpFile);
+    outTmpFile.close();
+    const tmpFile = await Deno.open(tmpFileName);
+    await extract(tmpFile, output);
+    tmpFile.close();
+    Deno.remove(tmpFileName);
   } else if (mode === "send") {
     const [input, output, hostPort] = args;
     await send(input, output, hostPort);
