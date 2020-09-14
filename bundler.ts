@@ -18,6 +18,7 @@ import { load } from "./load.ts";
 import { parse } from "./parse.ts";
 import { receive } from "./receive.ts";
 import { send } from "./send.ts";
+import { tsBundle } from "./tsBundle.ts";
 import type { bundle } from "./types.ts";
 
 export { compress, extract, load, parse, bundle };
@@ -35,6 +36,13 @@ if (import.meta.main) {
     const file = await Deno.open(input);
     await extract(file, output, console.log);
     file.close();
+  } else if (mode === "ts-bundle") {
+    const [input, output] = args;
+    const inFile = await Deno.open(input);
+    const outFile = await Deno.open(output, { create: true, write: true });
+    await tsBundle(inFile, outFile);
+    inFile.close();
+    outFile.close();
   } else if (mode === "send") {
     const [input, output, hostPort] = args;
     await send(input, output, hostPort);
