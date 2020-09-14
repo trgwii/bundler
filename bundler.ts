@@ -15,14 +15,12 @@ deno install --allow-read=. --allow-write=. -n bundler bundler.ts
 import { compress } from "./compress.ts";
 import { extract } from "./extract.ts";
 import { load } from "./load.ts";
-import { readerFromBuffer } from "./readerFromBuffer.ts";
+import { parse } from "./parse.ts";
 import { receive } from "./receive.ts";
 import { send } from "./send.ts";
-import { bundle } from "./types.ts";
+import type { bundle } from "./types.ts";
 
-export { compress, extract, load };
-
-export const parse = (data: Uint8Array) => load(readerFromBuffer(data));
+export { compress, extract, load, parse, bundle };
 
 if (import.meta.main) {
   const [mode, ...args] = Deno.args;
