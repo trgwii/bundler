@@ -6,7 +6,7 @@ export const tsBundle = async (input: Deno.Reader, output: Deno.Writer) => {
   await output.write(enc(
     [
       'import { parse } from "https://git.rory.no/trgwii/Bundler/raw/branch/master/parse.ts";',
-      'import { decode } from "https://deno.land/std@0.69.0/encoding/ascii85.ts";',
+      'import { decode } from "https://deno.land/std@0.70.0/encoding/ascii85.ts";',
       'import { decompress } from "https://deno.land/x/brotli@v0.1.4/mod.ts";',
     ].join("\n") + "\n",
   ));

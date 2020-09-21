@@ -1,4 +1,4 @@
-import { writeVarnum } from "https://deno.land/std@0.68.0/encoding/binary.ts";
+import { writeVarnum } from "./deps.ts";
 import { bundle } from "./types.ts";
 
 export const unparse = async (data: bundle, output: Deno.Writer) => {
