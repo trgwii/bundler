@@ -2,5 +2,11 @@
 	"deno.enable": true,
 	"editor.defaultFormatter": "denoland.vscode-deno",
 	"editor.formatOnSave": true,
-	"editor.codeActionsOnSave": ["source.organizeImports", "source.fixAll.deno"]
+	"editor.codeActionsOnSave": [
+		"source.organizeImports",
+		"source.fixAll.deno"
+	],
+	"deno.import_intellisense_origins": {
+		"https://deno.land": true
+	}
 }
