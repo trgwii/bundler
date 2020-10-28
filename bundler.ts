@@ -22,7 +22,8 @@ import { tsBundle } from "./tsBundle.ts";
 import type { bundle } from "./types.ts";
 import { unparse } from "./unparse.ts";
 
-export { compress, extract, load, parse, bundle };
+export { compress, extract, load, parse };
+export type { bundle };
 
 if (import.meta.main) {
   const [mode, ...args] = Deno.args;
