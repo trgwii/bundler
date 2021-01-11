@@ -1,0 +1,9 @@
+import init, { source, lz4_compress, lz4_decompress, } from "./wasm.js";
+await init(source);
+export function compress(input) {
+    return lz4_compress(input);
+}
+export function decompress(input) {
+    return lz4_decompress(input);
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibW9kLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsibW9kLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBLE9BQU8sSUFBSSxFQUFFLEVBQ1gsTUFBTSxFQUNOLFlBQVksRUFDWixjQUFjLEdBQ2YsTUFBTSxXQUFXLENBQUM7QUFFbkIsTUFBTSxJQUFJLENBQUMsTUFBTSxDQUFDLENBQUM7QUFjbkIsTUFBTSxVQUFVLFFBQVEsQ0FBQyxLQUFpQjtJQUN4QyxPQUFPLFlBQVksQ0FBQyxLQUFLLENBQUMsQ0FBQztBQUM3QixDQUFDO0FBY0QsTUFBTSxVQUFVLFVBQVUsQ0FBQyxLQUFpQjtJQUMxQyxPQUFPLGNBQWMsQ0FBQyxLQUFLLENBQUMsQ0FBQztBQUMvQixDQUFDIn0=

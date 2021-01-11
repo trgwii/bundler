@@ -1,0 +1,9 @@
+import init, { source, compress as wasm_compress, decompress as wasm_decompress, } from "./wasm.js";
+await init(source);
+export function compress(input, bufferSize = 4096, quality = 6, lgwin = 22) {
+    return wasm_compress(input, bufferSize, quality, lgwin);
+}
+export function decompress(input, bufferSize = 4096) {
+    return wasm_decompress(input, bufferSize);
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibW9kLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsibW9kLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBLE9BQU8sSUFBSSxFQUFFLEVBQ1gsTUFBTSxFQUNOLFFBQVEsSUFBSSxhQUFhLEVBQ3pCLFVBQVUsSUFBSSxlQUFlLEdBQzlCLE1BQU0sV0FBVyxDQUFDO0FBRW5CLE1BQU0sSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFDO0FBa0JuQixNQUFNLFVBQVUsUUFBUSxDQUN0QixLQUFpQixFQUNqQixhQUFxQixJQUFJLEVBQ3pCLFVBQWtCLENBQUMsRUFDbkIsUUFBZ0IsRUFBRTtJQUVsQixPQUFPLGFBQWEsQ0FBQyxLQUFLLEVBQUUsVUFBVSxFQUFFLE9BQU8sRUFBRSxLQUFLLENBQUMsQ0FBQztBQUMxRCxDQUFDO0FBZUQsTUFBTSxVQUFVLFVBQVUsQ0FDeEIsS0FBaUIsRUFDakIsYUFBcUIsSUFBSTtJQUV6QixPQUFPLGVBQWUsQ0FBQyxLQUFLLEVBQUUsVUFBVSxDQUFDLENBQUM7QUFDNUMsQ0FBQyJ9
