@@ -1,0 +1,15 @@
+export const readerFromBuffer = (data) => {
+    let bytesWritten = 0;
+    const read = async (out) => {
+        if (bytesWritten >= data.byteLength) {
+            return null;
+        }
+        const bytes = Math.min(data.byteLength - bytesWritten, out.byteLength);
+        const slice = data.subarray(bytesWritten, bytesWritten + bytes);
+        out.set(slice, 0);
+        bytesWritten += bytes;
+        return bytes;
+    };
+    return { read };
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicmVhZGVyRnJvbUJ1ZmZlci5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbInJlYWRlckZyb21CdWZmZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsTUFBTSxDQUFDLE1BQU0sZ0JBQWdCLEdBQUcsQ0FBQyxJQUFnQixFQUFlLEVBQUU7SUFDaEUsSUFBSSxZQUFZLEdBQUcsQ0FBQyxDQUFDO0lBQ3JCLE1BQU0sSUFBSSxHQUFHLEtBQUssRUFBRSxHQUFlLEVBQUUsRUFBRTtRQUNyQyxJQUFJLFlBQVksSUFBSSxJQUFJLENBQUMsVUFBVSxFQUFFO1lBQ25DLE9BQU8sSUFBSSxDQUFDO1NBQ2I7UUFDRCxNQUFNLEtBQUssR0FBRyxJQUFJLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxVQUFVLEdBQUcsWUFBWSxFQUFFLEdBQUcsQ0FBQyxVQUFVLENBQUMsQ0FBQztRQUN2RSxNQUFNLEtBQUssR0FBRyxJQUFJLENBQUMsUUFBUSxDQUN6QixZQUFZLEVBQ1osWUFBWSxHQUFHLEtBQUssQ0FDckIsQ0FBQztRQUNGLEdBQUcsQ0FBQyxHQUFHLENBQUMsS0FBSyxFQUFFLENBQUMsQ0FBQyxDQUFDO1FBQ2xCLFlBQVksSUFBSSxLQUFLLENBQUM7UUFDdEIsT0FBTyxLQUFLLENBQUM7SUFDZixDQUFDLENBQUM7SUFDRixPQUFPLEVBQUUsSUFBSSxFQUFFLENBQUM7QUFDbEIsQ0FBQyxDQUFDIn0=

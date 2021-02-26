@@ -1,0 +1,14 @@
+import { compress, encode, strings } from "./deps.ts";
+const enc = (x) => new TextEncoder().encode(x);
+export const tsBundle = async (input, output) => {
+    await output.write(enc([
+        'import { decode } from "' + strings.decode + '";',
+        'import { decompress } from "' + strings.decompress + '";',
+        'import { parse } from "' + strings.parse + '";',
+    ].join("\n") + "\n"));
+    await output.write(enc('export default parse(\n  decompress(\n    decode(\n      "'));
+    const buf = await Deno.readAll(input);
+    await Deno.writeAll(output, enc(encode(compress(buf), { standard: "Z85" })));
+    await output.write(enc('",\n      { standard: "Z85" },\n    ),\n  ),\n);\n'));
+};
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidHNCdW5kbGUuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJ0c0J1bmRsZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxPQUFPLEVBQUUsUUFBUSxFQUFFLE1BQU0sRUFBRSxPQUFPLEVBQUUsTUFBTSxXQUFXLENBQUM7QUFFdEQsTUFBTSxHQUFHLEdBQUcsQ0FBQyxDQUFTLEVBQUUsRUFBRSxDQUFDLElBQUksV0FBVyxFQUFFLENBQUMsTUFBTSxDQUFDLENBQUMsQ0FBQyxDQUFDO0FBRXZELE1BQU0sQ0FBQyxNQUFNLFFBQVEsR0FBRyxLQUFLLEVBQUUsS0FBa0IsRUFBRSxNQUFtQixFQUFFLEVBQUU7SUFDeEUsTUFBTSxNQUFNLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FDcEI7UUFDRSwwQkFBMEIsR0FBRyxPQUFPLENBQUMsTUFBTSxHQUFHLElBQUk7UUFDbEQsOEJBQThCLEdBQUcsT0FBTyxDQUFDLFVBQVUsR0FBRyxJQUFJO1FBQzFELHlCQUF5QixHQUFHLE9BQU8sQ0FBQyxLQUFLLEdBQUcsSUFBSTtLQUNqRCxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsR0FBRyxJQUFJLENBQ3BCLENBQUMsQ0FBQztJQUNILE1BQU0sTUFBTSxDQUFDLEtBQUssQ0FDaEIsR0FBRyxDQUFDLDREQUE0RCxDQUFDLENBQ2xFLENBQUM7SUFFRixNQUFNLEdBQUcsR0FBRyxNQUFNLElBQUksQ0FBQyxPQUFPLENBQUMsS0FBSyxDQUFDLENBQUM7SUFDdEMsTUFBTSxJQUFJLENBQUMsUUFBUSxDQUFDLE1BQU0sRUFBRSxHQUFHLENBQUMsTUFBTSxDQUFDLFFBQVEsQ0FBQyxHQUFHLENBQUMsRUFBRSxFQUFFLFFBQVEsRUFBRSxLQUFLLEVBQUUsQ0FBQyxDQUFDLENBQUMsQ0FBQztJQUU3RSxNQUFNLE1BQU0sQ0FBQyxLQUFLLENBQUMsR0FBRyxDQUFDLG9EQUFvRCxDQUFDLENBQUMsQ0FBQztBQUNoRixDQUFDLENBQUMifQ==
