@@ -1,11 +1,11 @@
 /*
-root: 0 or 1 (file or dir)
+root: 0 or 1 (file or dir) (uint8)
 	0:
-		length of file buffer
+		length of file buffer (uint64)
 			file buffer
 	1:
-		amount of entries
-			length of name buffer
+		amount of entries (uint64)
+			length of name buffer (uint64)
 			name buffer
 			(root)
 

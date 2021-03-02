@@ -1,4 +1,6 @@
-import { copyN, readVarbig } from "./deps.ts";
+import { copyN } from "./deps.ts";
+import { readBig, readSmall } from "./utils.ts";
+
 import { getBytes } from "./getBytes.ts";
 import type { log } from "./types.ts";
 
@@ -7,19 +9,19 @@ export const extract = async (
   outPath: string,
   log: log = () => {},
 ) => {
-  const isFile = (await readVarbig(input)) === 0n;
+  const isFile = (await readSmall(input)) === 0;
   if (isFile) {
-    const length = Number(await readVarbig(input));
+    const length = Number(await readBig(input));
     log("[extract] file with length", length);
     const file = await Deno.open(outPath, { create: true, write: true });
     await copyN(input, file, length);
     file.close();
   } else {
     await Deno.mkdir(outPath, { recursive: true });
-    const entries = Number(await readVarbig(input));
+    const entries = Number(await readBig(input));
     log("[extract] dir with", entries, "entries");
     for (let i = 0; i < entries; i++) {
-      const nameLength = Number(await readVarbig(input));
+      const nameLength = Number(await readBig(input));
       const name = new TextDecoder().decode(await getBytes(nameLength, input));
       log("[extract] entry:", name);
       await extract(input, `${outPath}/${name}`, log);
