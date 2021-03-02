@@ -61,10 +61,10 @@ if (import.meta.main) {
     Deno.remove(tmpFileName);
   } else if (mode === "send") {
     const [input, output, hostPort] = args;
-    await send(input, output, hostPort);
+    await send(input, output, hostPort, console.log);
   } else if (mode === "receive") {
     const [hostPort, output] = args;
-    await receive(hostPort, output);
+    await receive(hostPort, output, console.log);
   } else if (mode === "show") {
     const [input] = args;
     const file = await Deno.open(input);

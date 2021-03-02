@@ -1,5 +1,5 @@
-import { writeVarnum } from "./deps.ts";
-import { log } from "./types.ts";
+import { writeVarbig } from "./deps.ts";
+import type { log } from "./types.ts";
 
 export const compress = async (
   inPath: string,
@@ -13,23 +13,23 @@ export const compress = async (
   }
   if (stat.isFile) {
     log("[compress] file", inPath, "with length", stat.size);
-    n += await writeVarnum(output, 0);
-    n += await writeVarnum(output, stat.size);
+    n += await writeVarbig(output, 0n);
+    n += await writeVarbig(output, BigInt(stat.size));
     const file = await Deno.open(inPath);
     n += await Deno.copy(file, output);
     file.close();
   }
   if (stat.isDirectory) {
-    n += await writeVarnum(output, 1);
+    n += await writeVarbig(output, 1n);
     const entries: string[] = [];
     for await (const ent of Deno.readDir(inPath)) {
       entries.push(ent.name);
     }
     log("[compress] dir with", entries.length, "entries");
-    n += await writeVarnum(output, entries.length);
+    n += await writeVarbig(output, BigInt(entries.length));
     for await (const name of entries) {
       const nameBytes = new TextEncoder().encode(name);
-      n += await writeVarnum(output, nameBytes.byteLength);
+      n += await writeVarbig(output, BigInt(nameBytes.byteLength));
       await Deno.writeAll(output, nameBytes);
       n += nameBytes.byteLength;
       n += await compress(`${inPath}/${name}`, output, log);
