@@ -16,7 +16,7 @@ export const extract = async (
     file.close();
   } else {
     await Deno.mkdir(outPath, { recursive: true });
-    const entries = await readVarbig(input);
+    const entries = Number(await readVarbig(input));
     log("[extract] dir with", entries, "entries");
     for (let i = 0; i < entries; i++) {
       const nameLength = Number(await readVarbig(input));
