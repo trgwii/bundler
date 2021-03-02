@@ -14,7 +14,7 @@ export const send = async (
   await write(conn, 1);
   await write(conn, 1n);
   const remoteData = new TextEncoder().encode(remotePath);
-  await write(conn, BigInt(remoteData.byteLength));
+  await write(conn, remoteData.byteLength);
   await Deno.writeAll(conn, remoteData);
   await compress(path, conn, log);
 };

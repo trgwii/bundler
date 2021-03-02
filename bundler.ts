@@ -5,7 +5,7 @@ root: 0 or 1 (file or dir) (uint8)
 			file buffer
 	1:
 		amount of entries (uint64)
-			length of name buffer (uint64)
+			length of name buffer (uint8)
 			name buffer
 			(root)
 

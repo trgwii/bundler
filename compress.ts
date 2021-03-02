@@ -29,7 +29,7 @@ export const compress = async (
     n += await write(output, BigInt(entries.length));
     for await (const name of entries) {
       const nameBytes = new TextEncoder().encode(name);
-      n += await write(output, BigInt(nameBytes.byteLength));
+      n += await write(output, nameBytes.byteLength);
       await Deno.writeAll(output, nameBytes);
       n += nameBytes.byteLength;
       n += await compress(`${inPath}/${name}`, output, log);

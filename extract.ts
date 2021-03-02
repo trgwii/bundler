@@ -21,7 +21,7 @@ export const extract = async (
     const entries = Number(await readBig(input));
     log("[extract] dir with", entries, "entries");
     for (let i = 0; i < entries; i++) {
-      const nameLength = Number(await readBig(input));
+      const nameLength = await readSmall(input);
       const name = new TextDecoder().decode(await getBytes(nameLength, input));
       log("[extract] entry:", name);
       await extract(input, `${outPath}/${name}`, log);

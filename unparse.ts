@@ -13,7 +13,7 @@ export const unparse = async (data: bundle, output: Deno.Writer) => {
     bytes += await write(output, BigInt(Object.keys(data).length));
     for (const [name, bundle] of Object.entries(data)) {
       const nameData = new TextEncoder().encode(name);
-      bytes += await write(output, BigInt(nameData.byteLength));
+      bytes += await write(output, nameData.byteLength);
       await Deno.writeAll(output, nameData);
       bytes += nameData.byteLength;
       bytes += await unparse(bundle, output);

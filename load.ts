@@ -17,7 +17,7 @@ export const load = async (
     log("[load] dir with", entries, "entries");
     const res: { [k: string]: bundle } = {};
     for (let i = 0; i < entries; i++) {
-      const nameLength = Number(await readBig(input));
+      const nameLength = await readSmall(input);
       const name = new TextDecoder().decode(
         await getBytes(nameLength, input),
       );
