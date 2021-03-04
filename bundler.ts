@@ -28,11 +28,17 @@ import { PassThrough } from "./passthrough.ts";
 export { compress, extract, load, parse };
 export type { bundle };
 
+const outOptions: Deno.OpenOptions = {
+  create: true,
+  write: true,
+  truncate: true,
+};
+
 if (import.meta.main) {
   const [mode, ...args] = Deno.args;
   if (mode === "compress") {
     const [input, output] = args;
-    const file = await Deno.open(output, { create: true, write: true });
+    const file = await Deno.open(output, outOptions);
     const bytes = await compress(input, file, console.log);
     console.log("[compress]", human(bytes), "bytes written to", output);
     file.close();
@@ -45,7 +51,7 @@ if (import.meta.main) {
     const [input, output] = args;
     const ps = new PassThrough();
     const compressor = compress(input, ps, console.log);
-    const outFile = await Deno.open(output, { create: true, write: true });
+    const outFile = await Deno.open(output, outOptions);
     const bundler = tsBundle(ps, outFile, await ast(input));
     await compressor;
     ps.close();
@@ -55,10 +61,7 @@ if (import.meta.main) {
     const [input, output] = args;
     const { default: data } = await import(input);
     const tmpFileName = output + ".bin.tmp";
-    const outTmpFile = await Deno.open(
-      tmpFileName,
-      { create: true, write: true },
-    );
+    const outTmpFile = await Deno.open(tmpFileName, outOptions);
     await unparse(await data, outTmpFile);
     outTmpFile.close();
     const tmpFile = await Deno.open(tmpFileName);

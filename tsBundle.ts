@@ -1,6 +1,6 @@
 import { compress, encode, strings } from "./deps.ts";
 import type { AST } from "./ast.ts";
-import { ast, type } from "./ast.ts";
+import { type } from "./ast.ts";
 
 const enc = (x: string) => new TextEncoder().encode(x);
 
