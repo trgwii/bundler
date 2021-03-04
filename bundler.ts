@@ -44,7 +44,7 @@ if (import.meta.main) {
   } else if (mode === "ts-bundle") {
     const [input, output] = args;
     const ps = new PassThrough();
-    const compressor = compress(input, ps);
+    const compressor = compress(input, ps, console.log);
     const outFile = await Deno.open(output, { create: true, write: true });
     const bundler = tsBundle(ps, outFile, await ast(input));
     await compressor;
