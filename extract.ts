@@ -3,6 +3,7 @@ import { readBig, readSmall } from "./utils.ts";
 
 import { getBytes } from "./getBytes.ts";
 import type { log } from "./types.ts";
+import { human } from "./size.ts";
 
 export const extract = async (
   input: Deno.Reader,
@@ -12,7 +13,7 @@ export const extract = async (
   const isFile = (await readSmall(input)) === 0;
   if (isFile) {
     const length = Number(await readBig(input));
-    log("[extract] file with length", length);
+    log("[extract] file with size", human(length));
     const file = await Deno.open(outPath, { create: true, write: true });
     await copyN(input, file, length);
     file.close();

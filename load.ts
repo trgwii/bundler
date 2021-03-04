@@ -1,6 +1,7 @@
 import { readBig, readSmall } from "./utils.ts";
 import { getBytes } from "./getBytes.ts";
 import type { bundle, log } from "./types.ts";
+import { human } from "./size.ts";
 
 export const load = async (
   input: Deno.Reader,
@@ -9,7 +10,7 @@ export const load = async (
   const isFile = (await readSmall(input)) === 0;
   if (isFile) {
     const length = Number(await readBig(input));
-    log("[load] file with length", length);
+    log("[load] file with size", human(length));
     const data = await getBytes(length, input);
     return data;
   } else {

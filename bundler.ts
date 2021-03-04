@@ -21,6 +21,9 @@ import { send } from "./send.ts";
 import { tsBundle } from "./tsBundle.ts";
 import type { bundle } from "./types.ts";
 import { unparse } from "./unparse.ts";
+import { human } from "./size.ts";
+import { ast } from "./ast.ts";
+import { PassThrough } from "./passthrough.ts";
 
 export { compress, extract, load, parse };
 export type { bundle };
@@ -31,7 +34,7 @@ if (import.meta.main) {
     const [input, output] = args;
     const file = await Deno.open(output, { create: true, write: true });
     const bytes = await compress(input, file, console.log);
-    console.log("[compress]", bytes, "bytes written to", output);
+    console.log("[compress]", human(bytes), "bytes written to", output);
     file.close();
   } else if (mode === "extract") {
     const [input, output] = args;
@@ -40,10 +43,13 @@ if (import.meta.main) {
     file.close();
   } else if (mode === "ts-bundle") {
     const [input, output] = args;
-    const inFile = await Deno.open(input);
+    const ps = new PassThrough();
+    const compressor = compress(input, ps);
     const outFile = await Deno.open(output, { create: true, write: true });
-    await tsBundle(inFile, outFile);
-    inFile.close();
+    const bundler = tsBundle(ps, outFile, await ast(input));
+    await compressor;
+    ps.close();
+    await bundler;
     outFile.close();
   } else if (mode === "ts-extract") {
     const [input, output] = args;

@@ -1,8 +1,14 @@
 import { compress, encode, strings } from "./deps.ts";
+import type { AST } from "./ast.ts";
+import { ast, type } from "./ast.ts";
 
 const enc = (x: string) => new TextEncoder().encode(x);
 
-export const tsBundle = async (input: Deno.Reader, output: Deno.Writer) => {
+export const tsBundle = async (
+  input: Deno.Reader,
+  output: Deno.Writer,
+  ast?: AST,
+) => {
   await output.write(enc(
     [
       'import { decode } from "' + strings.decode + '";',
@@ -17,5 +23,10 @@ export const tsBundle = async (input: Deno.Reader, output: Deno.Writer) => {
   const buf = await Deno.readAll(input);
   await Deno.writeAll(output, enc(encode(compress(buf), { standard: "Z85" })));
 
-  await output.write(enc('",\n      { standard: "Z85" },\n    ),\n  ),\n);\n'));
+  await output.write(enc('",\n      { standard: "Z85" },\n    ),\n  ),\n)'));
+  if (ast === undefined) {
+    await output.write(enc(";\n"));
+    return;
+  }
+  await output.write(enc(` as Promise<${type(ast)}>;\n`));
 };

@@ -1,5 +1,6 @@
 import { write } from "./utils.ts";
 import type { log } from "./types.ts";
+import { human } from "./size.ts";
 
 export const compress = async (
   inPath: string,
@@ -12,7 +13,7 @@ export const compress = async (
     throw new TypeError("Symlinks not implemented");
   }
   if (stat.isFile) {
-    log("[compress] file", inPath, "with length", stat.size);
+    log("[compress] file with size", human(stat.size) + ":", inPath);
     n += await write(output, 0);
     n += await write(output, BigInt(stat.size));
     const file = await Deno.open(inPath);
