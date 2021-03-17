@@ -1,17 +1,17 @@
 {
   "headers": {
-    "cache-control": "public, max-age=31536000, immutable",
-    "access-control-max-age": "86400",
+    "access-control-allow-origin": "*",
+    "etag": "\"39a6e3eb5ed9b03e29f162122aa1a562\"",
     "content-type": "application/typescript; charset=utf-8",
     "x-deno-cache": "HIT",
-    "server": "Fly/884dbc0 (2021-03-17)",
-    "server-timing": "total;dur=1",
-    "last-modified": "Tue, 09 Mar 2021 20:51:37 GMT",
-    "fly-request-id": "01F111B10FEWTC1VT7ATK9CMAB",
-    "etag": "\"39a6e3eb5ed9b03e29f162122aa1a562\"",
-    "date": "Wed, 17 Mar 2021 21:26:51 GMT",
     "via": "2 fly.io",
-    "access-control-allow-origin": "*"
+    "fly-request-id": "01F1121N64Y8EGBB04GTWT6CS3",
+    "server": "Fly/884dbc0 (2021-03-17)",
+    "cache-control": "public, max-age=31536000, immutable",
+    "last-modified": "Tue, 09 Mar 2021 20:51:37 GMT",
+    "server-timing": "total;dur=1",
+    "date": "Wed, 17 Mar 2021 21:39:10 GMT",
+    "access-control-max-age": "86400"
   },
   "url": "https://deno.land/std@0.90.0/io/bufio.ts"
 }

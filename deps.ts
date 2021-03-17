@@ -7,6 +7,7 @@ export {
 } from "https://deno.land/std@0.90.0/encoding/binary.ts";
 export { copyN } from "https://deno.land/std@0.90.0/io/ioutil.ts";
 export { compress } from "https://deno.land/x/brotli@v0.1.4/mod.ts";
+export { cyan } from "https://deno.land/std@0.90.0/fmt/colors.ts";
 
 export const strings = {
   decode: "https://deno.land/std@0.90.0/encoding/ascii85.ts",

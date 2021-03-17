@@ -1,4 +1,4 @@
-import { cyan } from "https://deno.land/std@0.89.0/fmt/colors.ts";
+import { cyan } from "./deps.ts";
 
 export const prefixes = {
   PiB: 2 ** 50,
