@@ -1,6 +1,6 @@
 import { compress } from "./compress.ts";
 import { write } from "./utils.ts";
-import { parseHostPort } from "./hostPort.ts";
+import { serverClient } from "./serverClient.ts";
 import type { log } from "./types.ts";
 
 export const send = async (
@@ -9,7 +9,7 @@ export const send = async (
   hostPort = "",
   log: log = () => {},
 ) => {
-  const conn = await Deno.connect(parseHostPort(hostPort));
+  const conn = await serverClient(hostPort, log);
   const p = Deno.copy(conn, Deno.stdout);
   await write(conn, 1);
   await write(conn, 1n);
@@ -17,4 +17,6 @@ export const send = async (
   await write(conn, remoteData.byteLength);
   await Deno.writeAll(conn, remoteData);
   await compress(path, conn, log);
+  await p;
+  conn.close();
 };
