@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "content-type": "application/typescript; charset=utf-8",
+    "fly-request-id": "01F1121N648H4NQ88TDP0120FM",
+    "server": "Fly/884dbc0 (2021-03-17)",
+    "etag": "\"e5ce4111fb107a7ba5b5f7667b7bda6a\"",
+    "last-modified": "Tue, 09 Mar 2021 20:51:36 GMT",
+    "cache-control": "public, max-age=31536000, immutable",
+    "access-control-max-age": "86400",
+    "date": "Wed, 17 Mar 2021 21:39:12 GMT",
+    "x-deno-cache": "HIT",
+    "via": "2 fly.io",
+    "server-timing": "total;dur=0",
+    "access-control-allow-origin": "*"
+  },
+  "url": "https://deno.land/std@0.90.0/_util/assert.ts"
+}
