@@ -1,7 +1,7 @@
 import { parseHostPort } from "./hostPort.ts";
 import type { log } from "./types.ts";
 
-export const serverClient = async (hostPort: string, log: log) => {
+export const serverClient = async (hostPort: string, log: log = () => {}) => {
   const parsedHostPort = parseHostPort(hostPort);
   try {
     const server = Deno.listen(parsedHostPort);

@@ -5,7 +5,7 @@ export type log = (...args: unknown[]) => void;
 export class PassThrough implements Deno.Reader, Deno.Writer, Deno.Closer {
   #read: number = 0;
   #write: number = 0;
-  #end: boolean = false;
+  #end = false;
   #buf: Uint8Array;
   #log: log;
   constructor(size = 1024 * 32, log: log = () => {}) {

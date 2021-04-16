@@ -18,6 +18,7 @@ import { load } from "./load.ts";
 import { parse } from "./parse.ts";
 import { receive } from "./receive.ts";
 import { send } from "./send.ts";
+import { transfer } from "./transfer.ts";
 import { tsBundle } from "./tsBundle.ts";
 import type { bundle } from "./types.ts";
 import { unparse } from "./unparse.ts";
@@ -74,6 +75,9 @@ if (import.meta.main) {
   } else if (mode === "receive") {
     const [hostPort, output] = args;
     await receive(hostPort, output, console.log);
+  } else if (mode === "transfer") {
+    const [input, output] = args;
+    await transfer(input, output, console.log);
   } else if (mode === "show") {
     const [input] = args;
     const file = await Deno.open(input);
