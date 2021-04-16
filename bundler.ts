@@ -103,7 +103,7 @@ if (import.meta.main) {
     })(data, 0);
   } else {
     console.error(
-      "Available commands: compress, extract, ts-bundle, ts-extract, send, receive, show",
+      "Available commands: compress, extract, ts-bundle, ts-extract, send, receive, transfer, show",
     );
   }
 }
