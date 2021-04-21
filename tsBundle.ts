@@ -17,7 +17,7 @@ export const tsBundle = async (
     ].join("\n") + "\n",
   ));
   await output.write(
-    enc('export default parse(\n  decompress(\n    decode(\n      "'),
+    enc('export default await parse(\n  decompress(\n    decode(\n      "'),
   );
 
   const buf = await Deno.readAll(input);
@@ -28,5 +28,5 @@ export const tsBundle = async (
     await output.write(enc(";\n"));
     return;
   }
-  await output.write(enc(` as Promise<${type(ast)}>;\n`));
+  await output.write(enc(` as ${type(ast)};\n`));
 };
